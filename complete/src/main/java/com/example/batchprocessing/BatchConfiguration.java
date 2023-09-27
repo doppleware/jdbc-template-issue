@@ -14,13 +14,22 @@ import org.springframework.batch.item.database.builder.JdbcBatchItemWriterBuilde
 import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.builder.FlatFileItemReaderBuilder;
 import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.transaction.PlatformTransactionManager;
 
 @Configuration
 public class BatchConfiguration {
+
+	private final JdbcTemplate jdbcTemplate;
+
+	@Autowired
+	public BatchConfiguration(JdbcTemplate jdbcTemplate) {
+		this.jdbcTemplate = jdbcTemplate;
+	}
 
 	// tag::readerwriterprocessor[]
 	@Bean
@@ -38,7 +47,7 @@ public class BatchConfiguration {
 
 	@Bean
 	public PersonItemProcessor processor() {
-		return new PersonItemProcessor();
+		return new PersonItemProcessor(this.jdbcTemplate);
 	}
 
 	@Bean
