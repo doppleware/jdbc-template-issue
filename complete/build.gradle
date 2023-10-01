@@ -13,7 +13,7 @@ repositories {
 }
 
 dependencies {
-	implementation "net.ttddyy.observation:datasource-micrometer:1.0.0"
+	implementation "net.ttddyy.observation:datasource-micrometer-spring-boot:1.+"
 	implementation 'org.springframework.boot:spring-boot-starter-batch'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.boot:spring-boot-starter-aop'
